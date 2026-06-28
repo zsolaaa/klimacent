@@ -1,0 +1,15 @@
+# Screenshotok és nagy forrásképek
+screencapture-*.png
+screen.png
+ChatGPT Image*.png
+680244381_*.jpg
+9c2c30f9a1c0684bc85439473abfb1c6.jpg
+klima.jpg
+klima2.jpg
+
+# Claude lokális beállítások
+.claude/settings.local.json
+
+# OS
+.DS_Store
+Thumbs.db

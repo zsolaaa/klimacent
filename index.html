@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>KlímaCent Kft. – Klímaszerelés és hűtéstechnika</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "on-secondary-fixed": "#410007",
+        "inverse-surface": "#22323e",
+        "on-error": "#fafcff",
+        "on-tertiary-fixed": "#001e2d",
+        "on-error-container": "#93000a",
+        "outline": "#737782",
+        "surface-tint": "#285dac",
+        "secondary": "#bb0027",
+        "surface-container-low": "#ebf5ff",
+        "primary-fixed-dim": "#acc7ff",
+        "on-background": "#0d1d29",
+        "on-tertiary-fixed-variant": "#004c6b",
+        "tertiary-fixed": "#c6e7ff",
+        "surface-container": "#e0f0ff",
+        "secondary-container": "#e0283c",
+        "on-surface-variant": "#424751",
+        "surface-container-lowest": "#f8fbff",
+        "surface-variant": "#d4e5f5",
+        "on-primary-container": "#95b9ff",
+        "outline-variant": "#c3c6d3",
+        "on-secondary-fixed-variant": "#92001c",
+        "tertiary-container": "#004f6f",
+        "on-secondary-container": "#fffbff",
+        "surface-container-high": "#d9eafa",
+        "secondary-fixed": "#ffdad8",
+        "surface": "#f6f9ff",
+        "on-primary-fixed-variant": "#004590",
+        "surface-container-highest": "#d4e5f5",
+        "tertiary-fixed-dim": "#81cfff",
+        "on-tertiary": "#fafcff",
+        "surface-dim": "#cbdcec",
+        "primary-container": "#004795",
+        "on-primary": "#fafcff",
+        "primary": "#00316b",
+        "error-container": "#ffdad6",
+        "inverse-on-surface": "#e6f2ff",
+        "on-tertiary-container": "#54c3ff",
+        "error": "#ba1a1a",
+        "primary-fixed": "#d7e2ff",
+        "on-primary-fixed": "#001b40",
+        "secondary-fixed-dim": "#ffb3b1",
+        "on-secondary": "#fafcff",
+        "surface-bright": "#f6f9ff",
+        "inverse-primary": "#acc7ff",
+        "background": "#f6f9ff",
+        "tertiary": "#00374f",
+        "on-surface": "#0d1d29"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.125rem",
+        "lg": "0.25rem",
+        "xl": "0.5rem",
+        "full": "0.75rem"
+      },
+      "spacing": {
+        "container-max": "1200px",
+        "gutter": "24px",
+        "xl": "80px",
+        "xs": "4px",
+        "sm": "12px",
+        "base": "8px",
+        "lg": "48px",
+        "md": "24px"
+      },
+      "fontFamily": {
+        "headline-xl-mobile": ["Montserrat"],
+        "headline-xl": ["Montserrat"],
+        "headline-lg-mobile": ["Montserrat"],
+        "body-md": ["Inter"],
+        "body-lg": ["Inter"],
+        "headline-md": ["Montserrat"],
+        "label-lg": ["Inter"],
+        "headline-lg": ["Montserrat"],
+        "label-sm": ["Inter"]
+      },
+      "fontSize": {
+        "headline-xl-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+        "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+        "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+      }
+    }
+  }
+}
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  @media (max-width: 767px) {
+    .hero-bg {
+      background-position: center -35px !important;
+    }
+    .hero-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.08)  0%,
+        rgba(0,0,0,0.28)  35%,
+        rgba(0,0,0,0.65)  55%,
+        rgba(0,0,0,0.90) 100%
+      ) !important;
+    }
+  }
+  .service-radio-label.active {
+    border-color: #00316b;
+    background-color: rgba(0, 49, 107, 0.07);
+  }
+
+  /* ── Keyframes ───────────────────────────────────── */
+  @keyframes kc-up    { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+  @keyframes kc-left  { from { opacity:0; transform:translateX(-28px); } to { opacity:1; transform:none; } }
+  @keyframes kc-right { from { opacity:0; transform:translateX(28px); } to { opacity:1; transform:none; } }
+  @keyframes kc-fade  { from { opacity:0; } to { opacity:1; } }
+  @keyframes kc-hero-scale { from { transform:scale(1.06); } to { transform:scale(1); } }
+
+  /* ── Hero (load-triggered, staggered) ───────────── */
+  .hero-anim {
+    animation-timing-function: cubic-bezier(0.16,1,0.3,1);
+    animation-fill-mode: both;
+    animation-duration: 0.75s;
+    animation-name: kc-up;
+  }
+  .hero-0 { animation-delay:  80ms; }
+  .hero-1 { animation-delay: 230ms; }
+  .hero-2 { animation-delay: 390ms; }
+  .hero-3 { animation-delay: 540ms; }
+
+  /* ── Hero background subtle zoom ────────────────── */
+  .hero-bg { animation: kc-hero-scale 2.8s cubic-bezier(0.16,1,0.3,1) both; }
+
+  /* ── Scroll-reveal ───────────────────────────────── */
+  [data-reveal] { opacity: 0; }
+  [data-reveal="up"]    { transform: translateY(20px); }
+  [data-reveal="left"]  { transform: translateX(-28px); }
+  [data-reveal="right"] { transform: translateX(28px); }
+  [data-reveal].visible {
+    animation-duration: 0.65s;
+    animation-timing-function: cubic-bezier(0.16,1,0.3,1);
+    animation-fill-mode: both;
+    animation-delay: var(--rd, 0ms);
+  }
+  [data-reveal="up"].visible    { animation-name: kc-up; }
+  [data-reveal="left"].visible  { animation-name: kc-left; }
+  [data-reveal="right"].visible { animation-name: kc-right; }
+  [data-reveal="fade"].visible  { animation-name: kc-fade; }
+
+  /* ── Reduced motion ──────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal], .hero-anim, .hero-bg {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant shadow-sm" id="main-nav">
+  <div class="max-w-container-max mx-auto px-gutter py-4 flex justify-between items-center">
+    <a href="#" aria-label="KlímaCent Kft. – Főoldal">
+      <img src="logo/logo.webp" alt="KlímaCent Kft." class="h-[60px] w-auto" style="mix-blend-mode: multiply;">
+    </a>
+
+    <!-- Desktop links -->
+    <div class="hidden md:flex gap-md items-center">
+      <a class="font-label-lg text-label-lg text-primary border-b-2 border-primary pb-1" href="#">Lakossági klímaszerelés</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Ipari Hűtés</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Szolgáltatások</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Rólunk</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#contact">Kapcsolat</a>
+    </div>
+
+    <div class="flex items-center gap-sm">
+      <!-- Desktop phone display -->
+      <div class="hidden lg:flex flex-col items-end mr-4">
+        <span class="text-label-sm text-on-surface-variant uppercase tracking-wider">Hívjon minket</span>
+        <span class="font-headline-md text-primary font-bold">(30) 362 5633</span>
+      </div>
+      <!-- Phone CTA -->
+      <a class="bg-secondary text-on-secondary px-3 py-3 rounded-lg font-label-lg hover:brightness-90 transition-all active:scale-95 flex items-center justify-center" href="tel:+36303625633" aria-label="Hívjon minket: (30) 362 5633">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">phone</span>
+      </a>
+      <!-- Mobile hamburger -->
+      <button class="md:hidden w-11 h-11 flex items-center justify-center" id="menu-toggle" aria-label="Menü megnyitása">
+        <span class="material-symbols-outlined text-on-surface" id="menu-icon">menu</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu drawer -->
+  <div class="hidden md:hidden bg-surface border-t border-outline-variant" id="mobile-menu">
+    <div class="max-w-container-max mx-auto px-gutter py-6 flex flex-col gap-1">
+      <a class="font-label-lg text-label-lg text-primary py-3 border-b border-outline-variant" href="#">Lakossági Klíma</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#">Ipari Hűtés</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#">Szolgáltatások</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#">Rólunk</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant py-3 hover:text-primary transition-colors" href="#contact">Kapcsolat</a>
+      <a class="mt-4 bg-secondary text-on-secondary px-6 py-3 rounded-lg font-label-lg flex items-center gap-2 w-fit" href="tel:+36303625633">
+        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">phone</span>
+        (30) 362 5633
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-24">
+
+<!-- Hero -->
+<section class="relative min-h-[65vh] md:min-h-[85vh] flex items-end overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    <div class="hero-overlay absolute inset-0 z-10" style="background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.15) 30%, rgba(0,0,0,0.62) 60%, rgba(0,0,0,0.84) 100%);"></div>
+    <div class="hero-bg w-full h-full bg-cover" style="background-image: url('klima.png'); background-position: center top;"></div>
+  </div>
+  <div class="max-w-container-max mx-auto px-gutter relative z-20 pb-16 w-full">
+    <div class="max-w-xl flex flex-col items-start space-y-6">
+      <p class="hero-anim hero-0 font-label-lg text-label-lg text-surface/60 uppercase tracking-widest">Több mint 25 év tapasztalat</p>
+      <h1 class="hero-anim hero-1 font-headline-xl text-headline-xl-mobile md:text-headline-xl text-surface leading-tight">
+        Klímaszerelés Baja és környékén, 25+ év tapasztalattal
+      </h1>
+      <p class="hero-anim hero-2 font-body-lg text-body-lg text-surface/75 max-w-[52ch]">
+        Lakásba, irodába, üzembe. Felmérés, telepítés, szerviz: saját csapattal, alvállalkozó nélkül.
+      </p>
+      <!-- Phone is primary CTA per brand strategy -->
+      <div class="hero-anim hero-3 flex flex-col sm:flex-row gap-sm w-full sm:w-auto">
+        <a href="tel:+36303625633" class="bg-secondary text-on-secondary px-8 sm:px-lg py-4 rounded-xl font-label-lg hover:brightness-110 transition-all active:scale-95 flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">phone</span>
+          (30) 362 5633
+        </a>
+        <a href="#contact" class="bg-surface text-primary px-8 sm:px-lg py-4 rounded-xl font-label-lg hover:bg-surface-container-low transition-all text-center">
+          Ajánlatkérés írásban
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services – nem azonos kártya-grid -->
+<section class="py-xl bg-surface">
+  <div class="max-w-container-max mx-auto px-gutter">
+    <h2 data-reveal="up" class="font-headline-lg text-headline-lg text-primary mb-lg">Mivel tudunk segíteni?</h2>
+
+    <div class="flex flex-col gap-md">
+
+      <!-- Kártya 1: Lakossági – kiemelt, vízszintes, navy háttér -->
+      <div data-reveal="up" class="bg-primary rounded-xl overflow-hidden group md:flex" style="min-height: 320px;">
+        <div class="md:w-3/5 p-6 md:p-8 lg:p-10 flex flex-col justify-between text-on-primary">
+          <div>
+            <span class="material-symbols-outlined text-[36px] mb-4 block" style="opacity: 0.55;">home_work</span>
+            <h3 class="font-headline-lg text-headline-lg mb-3">Lakossági klímaszerelés</h3>
+            <p class="font-body-md max-w-[46ch] mb-6" style="opacity: 0.8;">
+              Split és multi-split rendszerek telepítése otthonokba, társasházakba, irodákba. Egy nap alatt kész, garanciával.
+            </p>
+            <ul class="space-y-2">
+              <li class="flex items-center gap-2 font-label-lg" style="opacity: 0.9;">
+                <span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                Split és multi-split rendszerek
+              </li>
+              <li class="flex items-center gap-2 font-label-lg" style="opacity: 0.9;">
+                <span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                Hűtés és fűtés üzemmód
+              </li>
+              <li class="flex items-center gap-2 font-label-lg" style="opacity: 0.9;">
+                <span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                A+ és A++ energiaosztály
+              </li>
+            </ul>
+          </div>
+          <a href="tel:+36303625633" class="mt-8 self-start font-label-lg flex items-center gap-1 transition-opacity hover:opacity-70" style="opacity: 0.55;">
+            Ajánlatot kérek <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </a>
+        </div>
+        <div class="md:w-2/5 h-64 md:h-auto overflow-hidden">
+          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDujci4HYO-_jPfY5CHZ8cF3_LQ8cDRLGKFbZrup1cT-zURaJbenA_TtnAroVMOb5JDXOHoCV289YxLrWjH-5Do9xRCqBxDBVehP4hs2lF9zbAxrvdvSQIyDHIMPCbKDuhv_AUNrGp50Puhp735L1lupLxF8RQzc4c6CEiWAIP9fk-Qk-0wQrZXdO_Xl0j8ZyU6jrNnqxGHVFA9CTpU3b53ZXtnb-qqzz_sf7H6bE5gd9TFgaZ9V9IYy08qK9mCAQ9PQ2yxScy3cz5v" alt="Klímaszerelés">
+        </div>
+      </div>
+
+      <!-- Kártyák 2+3: különböző szerkezetű, 2-col rácsban -->
+      <div class="grid md:grid-cols-2 gap-md">
+
+        <!-- Kártya 2: Ipari – kép felül, szöveg alul -->
+        <div data-reveal="up" style="--rd:80ms" class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden group hover:border-primary transition-colors duration-300">
+          <div class="h-52 overflow-hidden">
+            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4bSO5lUDtRxhigcamrT-Jj1jn3khkuGLIgccIqUJalD3HiosV7lOgGuJ5c1E8wgLeIFcZAsSmoG6Ei771_HfU6aStdaQtWphpNv_a_qWQlQ-3lkXmOkyEktSuoy6nA1U8OL6DE4ls_3MckQZQZSgjCYhiDhV4QXwrLYx9kqKCBXhpv4DJ_wkbzt8neCsO8ZW7GD1Ycskj__ta0dBpdkpRyGe1ghYrNtup8ZzblNU4S76suL56-hCQgy-RZHghZ3kdGV7GnLmELVcy" alt="Ipari hűtőrendszer" loading="lazy">
+          </div>
+          <div class="p-6 lg:p-8">
+            <h3 class="font-headline-md text-headline-md text-primary mb-3">Ipari hűtési megoldások</h3>
+            <p class="font-body-md text-on-surface-variant mb-5">
+              Hűtőkamrák, precíziós szerverhűtés, nagyteljesítményű légtechnikai rendszerek. Gyáraktól raktárakig.
+            </p>
+            <ul class="space-y-2">
+              <li class="flex items-center gap-2 text-label-lg text-on-surface">
+                <span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                Hűtőkamra tervezés és kivitelezés
+              </li>
+              <li class="flex items-center gap-2 text-label-lg text-on-surface">
+                <span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                Precíziós és szerverhűtés
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Kártya 3: Szerviz – nincs kép, gazdag szöveg, kék tintás háttér -->
+
+        <div data-reveal="up" style="--rd:160ms" class="bg-surface-container rounded-xl p-6 lg:p-8 flex flex-col justify-between">
+          <div>
+            <span class="material-symbols-outlined text-[36px] text-primary mb-4 block">handyman</span>
+            <h3 class="font-headline-md text-headline-md text-primary mb-3">Szerviz és karbantartás</h3>
+            <p class="font-body-md text-on-surface-variant mb-5">
+              Évi egyszeri tisztítás meghosszabbítja a klíma élettartamát és csökkenti az áramfogyasztást.
+            </p>
+            <ul class="space-y-2">
+              <li class="flex items-center gap-2 text-label-lg text-on-surface">
+                <span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                Fertőtlenítés, szűrőtisztítás
+              </li>
+              <li class="flex items-center gap-2 text-label-lg text-on-surface">
+                <span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                Gáztöltés, szivárgásvizsgálat
+              </li>
+              <li class="flex items-center gap-2 text-label-lg text-on-surface">
+                <span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                Hibaelhárítás, pótalkatrész csere
+              </li>
+            </ul>
+          </div>
+          <div class="mt-8 pt-5 border-t border-outline-variant">
+            <p class="text-label-sm text-on-surface-variant">
+              Szervizidőpont <strong class="text-on-surface font-semibold">1 munkanapon belül</strong> egyeztethető.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About – nincs metrika-badge, nincs stat-grid, konkrét szöveg -->
+<section class="py-xl overflow-hidden">
+  <div class="max-w-container-max mx-auto px-gutter">
+    <div class="flex flex-col lg:flex-row items-start gap-lg">
+
+      <div data-reveal="left" class="lg:w-1/2">
+        <div class="rounded-2xl overflow-hidden shadow-xl">
+          <img class="w-full h-auto block" src="logo/auto.webp" alt="KlímaCent szervizautó" loading="lazy">
+        </div>
+      </div>
+
+      <div data-reveal="right" class="lg:w-1/2 space-y-6 pt-2">
+        <h2 class="font-headline-lg text-headline-lg text-primary">Konkrét munkavégzés, írott garancia</h2>
+        <p class="font-body-lg text-on-surface-variant max-w-[58ch]">
+          1999 óta Baján és környékén szerelünk és szervizelünk. Nincs alvállalkozó: a felmérést, a szerelést és az éves karbantartást is a saját csapatunk végzi. Minden telepítésre 2 éves garanciát vállalunk, írásban.
+        </p>
+
+        <!-- Konkrét, ellenőrizhető bizalmi jelek – nem szám+cimke sablon -->
+        <ul class="flex flex-col gap-4 pt-2">
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">verified</span>
+            <span class="font-body-md text-on-surface"><strong>2 éves garancia</strong> minden telepítésre, írásban</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">engineering</span>
+            <span class="font-body-md text-on-surface">Saját szerelőcsapat, <strong>nincs alvállalkozó</strong></span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+            <span class="font-body-md text-on-surface">Baja és 30 km-es körzete, <strong>azonnali kiszállással</strong></span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">storefront</span>
+            <span class="font-body-md text-on-surface">Daikin, Mitsubishi Electric, LG és Gree <strong>hivatalos szervizpartner</strong></span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Brand logos -->
+<section class="py-lg bg-surface-container-low border-y border-outline-variant">
+  <div class="max-w-container-max mx-auto px-gutter">
+    <p class="text-label-sm text-on-surface-variant uppercase tracking-[0.2em] text-center mb-6">Hivatalos márkaszerviz és forgalmazó</p>
+    <div data-reveal="fade" class="flex flex-wrap justify-center items-center gap-lg md:gap-xl opacity-85">
+      <img src="logo/Daikin-Logo.png" alt="Daikin" class="h-8 w-auto">
+      <img src="logo/Mitsubishi_Electric-Logo.wine.png" alt="Mitsubishi Electric" class="h-8 w-auto">
+      <img src="logo/LG_logo_(2014).svg.png" alt="LG" class="h-8 w-auto">
+      <img src="logo/cascade-logo.png" alt="Cascade" class="h-8 max-w-[88px] object-contain">
+      <img src="logo/avd8lnbif.webp" alt="Gree" class="h-8 w-auto">
+      <img src="logo/tcl-vector-logo-11574259917avkticmgei.png" alt="TCL" class="h-8 w-auto">
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="py-xl" id="contact">
+  <div class="max-w-container-max mx-auto px-gutter">
+    <div class="bg-primary-container rounded-2xl overflow-hidden flex flex-col md:flex-row">
+
+      <!-- Info panel -->
+      <div data-reveal="left" class="md:w-1/3 bg-primary p-6 md:p-lg text-on-primary flex flex-col justify-between">
+        <div class="space-y-6">
+          <h2 class="font-headline-lg text-headline-lg">Lépjen velünk kapcsolatba</h2>
+          <p class="font-body-md" style="opacity: 0.8;">
+            Kérjen ingyenes helyszíni felmérést vagy kérdezzen szakértőinktől.
+          </p>
+          <div class="space-y-4 pt-6">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style="background: rgba(250,252,255,0.1);">
+                <span class="material-symbols-outlined text-[20px]">phone</span>
+              </div>
+              <div>
+                <div class="text-label-sm" style="opacity: 0.6;">Hívjon minket</div>
+                <a href="tel:+36303625633" class="font-headline-md hover:opacity-75 transition-opacity">(30) 362 5633</a>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style="background: rgba(250,252,255,0.1);">
+                <span class="material-symbols-outlined text-[20px]">mail</span>
+              </div>
+              <div>
+                <div class="text-label-sm" style="opacity: 0.6;">Email cím</div>
+                <a href="mailto:klimacentplusskft@gmail.com" class="font-headline-md hover:opacity-75 transition-opacity">klimacentplusskft@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pt-12 text-label-sm" style="opacity: 0.45;">KlímaCent Kft. – 25 éve az Ön szolgálatában</div>
+      </div>
+
+      <!-- Form -->
+      <div data-reveal="right" style="--rd:120ms" class="md:w-2/3 p-6 md:p-lg bg-surface-container-highest">
+        <form class="flex flex-col gap-md" id="contact-form">
+
+          <!-- Service type: pill toggle -->
+          <div class="space-y-2">
+            <label class="text-label-lg text-on-surface">Miben segíthetünk?</label>
+            <div class="flex flex-wrap gap-2" id="service-pills">
+              <label class="service-radio-label px-4 py-3 min-h-[44px] flex items-center rounded-lg border border-outline-variant bg-surface cursor-pointer transition-colors text-label-lg text-on-surface select-none">
+                <input type="radio" name="service" value="lakossagi" class="sr-only">
+                Lakás / iroda
+              </label>
+              <label class="service-radio-label px-4 py-3 min-h-[44px] flex items-center rounded-lg border border-outline-variant bg-surface cursor-pointer transition-colors text-label-lg text-on-surface select-none">
+                <input type="radio" name="service" value="ipari" class="sr-only">
+                Ipari / kereskedelmi
+              </label>
+              <label class="service-radio-label px-4 py-3 min-h-[44px] flex items-center rounded-lg border border-outline-variant bg-surface cursor-pointer transition-colors text-label-lg text-on-surface select-none">
+                <input type="radio" name="service" value="szerviz" class="sr-only">
+                Szerviz / karbantartás
+              </label>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+            <div class="space-y-2">
+              <label class="text-label-lg text-on-surface" for="name">Név</label>
+              <input id="name" class="w-full p-4 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Az Ön neve" type="text" autocomplete="name">
+            </div>
+            <div class="space-y-2">
+              <label class="text-label-lg text-on-surface" for="tel">Telefonszám</label>
+              <input id="tel" class="w-full p-4 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="+36 00 000 0000" type="tel" autocomplete="tel">
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-label-lg text-on-surface" for="message">Üzenet</label>
+            <textarea id="message" class="w-full p-4 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Miben segíthetünk Önnek?" rows="4"></textarea>
+          </div>
+
+          <div class="pt-2">
+            <button class="w-full bg-secondary text-on-secondary py-5 rounded-xl font-headline-md hover:brightness-110 shadow-lg active:scale-[0.98] transition-all" type="submit">
+              Ajánlatot kérek
+            </button>
+            <p class="text-center text-label-sm text-on-surface-variant mt-4">
+              Az elküldéssel elfogadja az
+              <a href="#" class="underline underline-offset-2 hover:text-primary transition-colors">Adatkezelési Tájékoztatónkat</a>.
+            </p>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-inverse-surface text-on-primary-container">
+  <div class="max-w-container-max mx-auto py-lg px-gutter flex flex-col md:flex-row justify-between items-center gap-md">
+    <div class="flex flex-col items-center md:items-start gap-2">
+      <div class="font-headline-md text-headline-md text-surface font-bold">KlímaCent Kft.</div>
+      <div class="text-label-sm text-surface-variant">
+        &copy; <span id="cy"></span> KlímaCent Kft. – Minden jog fenntartva.
+      </div>
+    </div>
+    <div class="flex flex-wrap justify-center gap-md">
+      <a class="text-label-sm text-surface-variant hover:text-surface transition-colors" href="#">Adatvédelem</a>
+      <a class="text-label-sm text-surface-variant hover:text-surface transition-colors" href="#">Általános Szerződési Feltételek</a>
+      <a class="text-label-sm text-surface-variant hover:text-surface transition-colors" href="#">Sütik kezelése</a>
+      <a class="text-label-sm text-surface-variant hover:text-surface transition-colors" href="#contact">Kapcsolat</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Dynamic copyright year
+  document.getElementById('cy').textContent = new Date().getFullYear();
+
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon  = document.getElementById('menu-icon');
+  let menuOpen = false;
+
+  menuToggle.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    mobileMenu.classList.toggle('hidden', !menuOpen);
+    menuIcon.textContent = menuOpen ? 'close' : 'menu';
+  });
+
+  // Close mobile menu when a link is clicked
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuOpen = false;
+      mobileMenu.classList.add('hidden');
+      menuIcon.textContent = 'menu';
+    });
+  });
+
+  // Service type pill selection
+  document.querySelectorAll('.service-radio-label').forEach(label => {
+    label.addEventListener('click', () => {
+      document.querySelectorAll('.service-radio-label').forEach(l => l.classList.remove('active'));
+      label.classList.add('active');
+    });
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#') return;
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Navbar shadow on scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-nav').classList.toggle('shadow-md', window.scrollY > 50);
+  });
+
+  // Scroll-reveal
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+</script>
+
+</body>
+</html>
