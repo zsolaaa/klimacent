@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>KlímaCent Kft. – Klímaszerelés és hűtéstechnika</title>
+<meta name="description" content="KlímaCent Kft. – Klímaszerelés, hűtéstechnika és szerviz Baján és 30 km-es körzetében. 25+ év tapasztalat, Daikin–Mitsubishi–LG szervizpartner, 2 éves garancia.">
+<link rel="icon" href="logo/logo.webp" type="image/webp">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,8 +67,7 @@ tailwind.config = {
       "borderRadius": {
         "DEFAULT": "0.125rem",
         "lg": "0.25rem",
-        "xl": "0.5rem",
-        "full": "0.75rem"
+        "xl": "0.5rem"
       },
       "spacing": {
         "container-max": "1200px",
@@ -127,6 +128,36 @@ tailwind.config = {
     background-color: rgba(0, 49, 107, 0.07);
   }
 
+  /* ── Nav scroll-spy aktív állapot ───────────────── */
+  .nav-active {
+    color: #00316b;
+    border-bottom: 2px solid #00316b;
+    padding-bottom: 4px;
+  }
+
+  /* ── Form validáció ──────────────────────────────── */
+  .field-invalid {
+    border-color: #ba1a1a !important;
+    box-shadow: 0 0 0 2px rgba(186,26,26,0.15) !important;
+    outline: none !important;
+  }
+
+  /* ── Privacy dialog ──────────────────────────────── */
+  #privacy-dialog {
+    margin: auto;
+    border: none;
+    outline: none;
+    padding: 0;
+  }
+  #privacy-dialog::backdrop {
+    background: rgba(0, 29, 64, 0.55);
+    backdrop-filter: blur(3px);
+  }
+
+  /* ── Tipográfia ──────────────────────────────────── */
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+
   /* ── Keyframes ───────────────────────────────────── */
   @keyframes kc-up    { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
   @keyframes kc-left  { from { opacity:0; transform:translateX(-28px); } to { opacity:1; transform:none; } }
@@ -150,10 +181,10 @@ tailwind.config = {
   .hero-bg { animation: kc-hero-scale 2.8s cubic-bezier(0.16,1,0.3,1) both; }
 
   /* ── Scroll-reveal ───────────────────────────────── */
-  [data-reveal] { opacity: 0; }
-  [data-reveal="up"]    { transform: translateY(20px); }
-  [data-reveal="left"]  { transform: translateX(-28px); }
-  [data-reveal="right"] { transform: translateX(28px); }
+  html.js [data-reveal] { opacity: 0; }
+  html.js [data-reveal="up"]    { transform: translateY(20px); }
+  html.js [data-reveal="left"]  { transform: translateX(-28px); }
+  html.js [data-reveal="right"] { transform: translateX(28px); }
   [data-reveal].visible {
     animation-duration: 0.65s;
     animation-timing-function: cubic-bezier(0.16,1,0.3,1);
@@ -174,6 +205,7 @@ tailwind.config = {
     }
   }
 </style>
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="bg-background text-on-surface font-body-md overflow-x-hidden">
 
@@ -185,11 +217,11 @@ tailwind.config = {
     </a>
 
     <!-- Desktop links -->
-    <div class="hidden md:flex gap-md items-center">
-      <a class="font-label-lg text-label-lg text-primary border-b-2 border-primary pb-1" href="#">Lakossági klímaszerelés</a>
-      <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Ipari Hűtés</a>
-      <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Szolgáltatások</a>
-      <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Rólunk</a>
+    <div class="hidden md:flex gap-md items-center" id="desktop-nav-links">
+      <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#szolgaltatasok">Lakossági klímaszerelés</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#szolgaltatasok">Ipari Hűtés</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#szolgaltatasok">Szolgáltatások</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#rolunk">Rólunk</a>
       <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#contact">Kapcsolat</a>
     </div>
 
@@ -204,7 +236,7 @@ tailwind.config = {
         <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">phone</span>
       </a>
       <!-- Mobile hamburger -->
-      <button class="md:hidden w-11 h-11 flex items-center justify-center" id="menu-toggle" aria-label="Menü megnyitása">
+      <button class="md:hidden w-11 h-11 flex items-center justify-center" id="menu-toggle" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="mobile-menu">
         <span class="material-symbols-outlined text-on-surface" id="menu-icon">menu</span>
       </button>
     </div>
@@ -213,10 +245,10 @@ tailwind.config = {
   <!-- Mobile menu drawer -->
   <div class="hidden md:hidden bg-surface border-t border-outline-variant" id="mobile-menu">
     <div class="max-w-container-max mx-auto px-gutter py-6 flex flex-col gap-1">
-      <a class="font-label-lg text-label-lg text-primary py-3 border-b border-outline-variant" href="#">Lakossági Klíma</a>
-      <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#">Ipari Hűtés</a>
-      <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#">Szolgáltatások</a>
-      <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#">Rólunk</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#szolgaltatasok">Lakossági Klíma</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#szolgaltatasok">Ipari Hűtés</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#szolgaltatasok">Szolgáltatások</a>
+      <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#rolunk">Rólunk</a>
       <a class="font-label-lg text-label-lg text-on-surface-variant py-3 hover:text-primary transition-colors" href="#contact">Kapcsolat</a>
       <a class="mt-4 bg-secondary text-on-secondary px-6 py-3 rounded-lg font-label-lg flex items-center gap-2 w-fit" href="tel:+36303625633">
         <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">phone</span>
@@ -236,7 +268,7 @@ tailwind.config = {
   </div>
   <div class="max-w-container-max mx-auto px-gutter relative z-20 pb-16 w-full">
     <div class="max-w-xl flex flex-col items-start space-y-6">
-      <p class="hero-anim hero-0 font-label-lg text-label-lg text-surface/60 uppercase tracking-widest">Több mint 25 év tapasztalat</p>
+      <p class="hero-anim hero-0 font-label-lg text-label-lg text-surface/60 uppercase tracking-widest">Daikin · Mitsubishi · LG · Gree szervizpartner</p>
       <h1 class="hero-anim hero-1 font-headline-xl text-headline-xl-mobile md:text-headline-xl text-surface leading-tight">
         Klímaszerelés Baja és környékén, 25+ év tapasztalattal
       </h1>
@@ -258,7 +290,7 @@ tailwind.config = {
 </section>
 
 <!-- Services – nem azonos kártya-grid -->
-<section class="py-xl bg-surface">
+<section class="py-xl bg-surface" id="szolgaltatasok">
   <div class="max-w-container-max mx-auto px-gutter">
     <h2 data-reveal="up" class="font-headline-lg text-headline-lg text-primary mb-lg">Mivel tudunk segíteni?</h2>
 
@@ -288,8 +320,9 @@ tailwind.config = {
               </li>
             </ul>
           </div>
-          <a href="tel:+36303625633" class="mt-8 self-start font-label-lg flex items-center gap-1 transition-opacity hover:opacity-70" style="opacity: 0.55;">
-            Ajánlatot kérek <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          <a href="tel:+36303625633" class="mt-8 self-start font-label-lg flex items-center gap-2 transition-opacity hover:opacity-70" style="opacity: 0.55;">
+            <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">phone_in_talk</span>
+            Hívjon minket
           </a>
         </div>
         <div class="md:w-2/5 h-64 md:h-auto overflow-hidden">
@@ -360,7 +393,7 @@ tailwind.config = {
 </section>
 
 <!-- About – nincs metrika-badge, nincs stat-grid, konkrét szöveg -->
-<section class="py-xl overflow-hidden">
+<section class="py-xl overflow-hidden" id="rolunk">
   <div class="max-w-container-max mx-auto px-gutter">
     <div class="flex flex-col lg:flex-row items-start gap-lg">
 
@@ -444,7 +477,7 @@ tailwind.config = {
               </div>
               <div>
                 <div class="text-label-sm" style="opacity: 0.6;">Email cím</div>
-                <a href="mailto:klimacentplusskft@gmail.com" class="font-headline-md hover:opacity-75 transition-opacity">klimacentplusskft@gmail.com</a>
+                <a href="mailto:klimacentplusskft@gmail.com" class="font-body-md text-body-md hover:opacity-75 transition-opacity break-all">klimacentplusskft@gmail.com</a>
               </div>
             </div>
           </div>
@@ -454,12 +487,12 @@ tailwind.config = {
 
       <!-- Form -->
       <div data-reveal="right" style="--rd:120ms" class="md:w-2/3 p-6 md:p-lg bg-surface-container-highest">
-        <form class="flex flex-col gap-md" id="contact-form">
+        <form class="flex flex-col gap-md" id="contact-form" novalidate>
 
           <!-- Service type: pill toggle -->
-          <div class="space-y-2">
-            <label class="text-label-lg text-on-surface">Miben segíthetünk?</label>
-            <div class="flex flex-wrap gap-2" id="service-pills">
+          <fieldset class="space-y-2 border-0 p-0 m-0">
+            <legend class="text-label-lg text-on-surface">Miben segíthetünk?</legend>
+            <div class="flex flex-wrap gap-2 mt-2" id="service-pills">
               <label class="service-radio-label px-4 py-3 min-h-[44px] flex items-center rounded-lg border border-outline-variant bg-surface cursor-pointer transition-colors text-label-lg text-on-surface select-none">
                 <input type="radio" name="service" value="lakossagi" class="sr-only">
                 Lakás / iroda
@@ -473,31 +506,31 @@ tailwind.config = {
                 Szerviz / karbantartás
               </label>
             </div>
-          </div>
+          </fieldset>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
             <div class="space-y-2">
               <label class="text-label-lg text-on-surface" for="name">Név</label>
-              <input id="name" class="w-full p-4 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Az Ön neve" type="text" autocomplete="name">
+              <input id="name" name="name" class="w-full p-4 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-surface-variant" placeholder="Az Ön neve" type="text" autocomplete="name" required aria-required="true">
             </div>
             <div class="space-y-2">
               <label class="text-label-lg text-on-surface" for="tel">Telefonszám</label>
-              <input id="tel" class="w-full p-4 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="+36 00 000 0000" type="tel" autocomplete="tel">
+              <input id="tel" name="tel" class="w-full p-4 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-surface-variant" placeholder="+36 00 000 0000" type="tel" autocomplete="tel" required aria-required="true">
             </div>
           </div>
 
           <div class="space-y-2">
             <label class="text-label-lg text-on-surface" for="message">Üzenet</label>
-            <textarea id="message" class="w-full p-4 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Miben segíthetünk Önnek?" rows="4"></textarea>
+            <textarea id="message" name="message" class="w-full p-4 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-surface-variant" placeholder="Miben segíthetünk Önnek?" rows="4"></textarea>
           </div>
 
           <div class="pt-2">
-            <button class="w-full bg-secondary text-on-secondary py-5 rounded-xl font-headline-md hover:brightness-110 shadow-lg active:scale-[0.98] transition-all" type="submit">
+            <button class="w-full bg-secondary text-on-secondary py-5 rounded-xl font-headline-md hover:brightness-110 shadow-lg active:scale-[0.98] transition-all" type="submit" id="contact-submit">
               Ajánlatot kérek
             </button>
             <p class="text-center text-label-sm text-on-surface-variant mt-4">
               Az elküldéssel elfogadja az
-              <a href="#" class="underline underline-offset-2 hover:text-primary transition-colors">Adatkezelési Tájékoztatónkat</a>.
+              <a href="#" data-open-privacy class="underline underline-offset-2 hover:text-primary transition-colors">Adatkezelési Tájékoztatónkat</a>.
             </p>
           </div>
         </form>
@@ -519,13 +552,34 @@ tailwind.config = {
       </div>
     </div>
     <div class="flex flex-wrap justify-center gap-md">
-      <a class="text-label-sm text-surface-variant hover:text-surface transition-colors" href="#">Adatvédelem</a>
-      <a class="text-label-sm text-surface-variant hover:text-surface transition-colors" href="#">Általános Szerződési Feltételek</a>
-      <a class="text-label-sm text-surface-variant hover:text-surface transition-colors" href="#">Sütik kezelése</a>
+      <a class="text-label-sm text-surface-variant hover:text-surface transition-colors" href="#" data-open-privacy>Adatvédelem</a>
+      <a class="text-label-sm text-surface-variant hover:text-surface transition-colors" href="#" data-open-privacy>Általános Szerződési Feltételek</a>
+      <a class="text-label-sm text-surface-variant hover:text-surface transition-colors" href="#" data-open-privacy>Sütik kezelése</a>
       <a class="text-label-sm text-surface-variant hover:text-surface transition-colors" href="#contact">Kapcsolat</a>
     </div>
   </div>
 </footer>
+
+<!-- ── Privacy / Legal Dialog ──────────────────────────────────────── -->
+<dialog id="privacy-dialog" class="rounded-2xl w-full max-w-lg shadow-2xl" aria-labelledby="privacy-dialog-title">
+  <div class="p-6 md:p-8">
+    <div class="flex justify-between items-start gap-4 mb-5">
+      <h2 id="privacy-dialog-title" class="font-headline-md text-headline-md text-primary">Adatkezelési Tájékoztató</h2>
+      <button id="privacy-dialog-close" class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" aria-label="Bezárás">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+    <div class="font-body-md text-on-surface-variant space-y-3 max-h-[50vh] overflow-y-auto pr-1">
+      <p>Az ajánlatkérő nyomtatványon megadott személyes adatokat (név, telefonszám) kizárólag az ajánlat elkészítéséhez és a kapcsolatfelvételhez használjuk fel. Adatokat harmadik félnek nem adunk át, automatizált döntéshozatalra nem alkalmazunk.</p>
+      <p><strong>Adatkezelő:</strong> KlímaCent Kft., Baja<br>
+      <strong>Kapcsolat:</strong> <a href="tel:+36303625633" class="text-primary hover:underline">(30) 362 5633</a> · <a href="mailto:klimacentplusskft@gmail.com" class="text-primary hover:underline">klimacentplusskft@gmail.com</a></p>
+      <p class="text-label-sm text-on-surface-variant pt-2 border-t border-outline-variant">A részletes adatkezelési tájékoztató összeállítás alatt áll. Kérdéseivel forduljon hozzánk.</p>
+    </div>
+    <div class="mt-6">
+      <button id="privacy-dialog-ok" class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-lg hover:brightness-110 transition-all active:scale-[0.98]">Megértettem</button>
+    </div>
+  </div>
+</dialog>
 
 <script>
   // Dynamic copyright year
@@ -541,6 +595,8 @@ tailwind.config = {
     menuOpen = !menuOpen;
     mobileMenu.classList.toggle('hidden', !menuOpen);
     menuIcon.textContent = menuOpen ? 'close' : 'menu';
+    menuToggle.setAttribute('aria-expanded', menuOpen ? 'true' : 'false');
+    menuToggle.setAttribute('aria-label', menuOpen ? 'Menü bezárása' : 'Menü megnyitása');
   });
 
   // Close mobile menu when a link is clicked
@@ -586,6 +642,108 @@ tailwind.config = {
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+
+  // ── Contact form ─────────────────────────────────────────────────
+
+  const contactForm = document.getElementById('contact-form');
+  const submitBtn   = document.getElementById('contact-submit');
+
+  function clearFieldErrors() {
+    contactForm.querySelectorAll('.field-error').forEach(el => el.remove());
+    contactForm.querySelectorAll('.field-invalid').forEach(el => {
+      el.classList.remove('field-invalid');
+      el.removeAttribute('aria-invalid');
+      el.removeAttribute('aria-describedby');
+    });
+    const submitErr = document.getElementById('form-submit-error');
+    if (submitErr) submitErr.remove();
+  }
+
+  function showFieldError(fieldId, msg) {
+    const field = document.getElementById(fieldId);
+    field.classList.add('field-invalid');
+    field.setAttribute('aria-invalid', 'true');
+    field.setAttribute('aria-describedby', fieldId + '-error');
+    const err = document.createElement('p');
+    err.id        = fieldId + '-error';
+    err.className = 'field-error font-label-sm mt-1';
+    err.style.color = '#ba1a1a';
+    err.textContent = msg;
+    field.parentNode.appendChild(err);
+  }
+
+  function setSubmitLoading(loading) {
+    submitBtn.disabled = loading;
+    submitBtn.textContent = loading ? 'Küldés…' : 'Ajánlatot kérek';
+  }
+
+  function showFormSuccess() {
+    contactForm.style.transition = 'opacity 0.25s';
+    contactForm.style.opacity = '0';
+    setTimeout(() => {
+      contactForm.innerHTML = `
+        <div class="flex flex-col items-center gap-5 py-10 text-center" role="status" aria-live="polite">
+          <span class="material-symbols-outlined text-[56px] text-secondary" style="font-variation-settings:'FILL' 1;display:block;">check_circle</span>
+          <h3 class="font-headline-md text-headline-md text-primary">Üzenet megérkezett!</h3>
+          <p class="font-body-md text-on-surface-variant max-w-[38ch]">Hamarosan felvesszük Önnel a kapcsolatot. Ha sürgős, hívjon minket közvetlenül:</p>
+          <a href="tel:+36303625633" class="bg-secondary text-on-secondary px-6 py-3 rounded-lg font-label-lg flex items-center gap-2 hover:brightness-110 transition-all active:scale-95">
+            <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1;">phone</span>
+            (30) 362 5633
+          </a>
+        </div>`;
+      contactForm.style.opacity = '1';
+    }, 260);
+  }
+
+  function showFormNetworkError() {
+    const err = document.createElement('p');
+    err.id = 'form-submit-error';
+    err.className = 'font-label-sm text-center rounded-lg p-3 mt-2';
+    err.style.cssText = 'color:#93000a; background:#ffdad6;';
+    err.innerHTML = 'Hiba az elküldés során. Hívjon minket: <a href="tel:+36303625633" style="font-weight:600;">(30) 362 5633</a>';
+    contactForm.appendChild(err);
+  }
+
+  contactForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    clearFieldErrors();
+
+    const name    = document.getElementById('name').value.trim();
+    const tel     = document.getElementById('tel').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const service = (contactForm.querySelector('input[name="service"]:checked') || {}).value || '';
+
+    let firstInvalid = null;
+    if (!name) { showFieldError('name', 'Kérjük, adja meg a nevét.'); firstInvalid = firstInvalid || 'name'; }
+    if (!tel)  { showFieldError('tel',  'Kérjük, adja meg a telefonszámát.'); firstInvalid = firstInvalid || 'tel'; }
+    if (firstInvalid) { document.getElementById(firstInvalid).focus(); return; }
+
+    setSubmitLoading(true);
+
+    try {
+      // TODO: Cserélje valódi végpontra (Formspree / Netlify Forms / saját API).
+      // Formspree példa:
+      //   const resp = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      //     method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(this)
+      //   });
+      //   if (!resp.ok) throw new Error('server');
+      showFormSuccess();
+    } catch {
+      setSubmitLoading(false);
+      showFormNetworkError();
+    }
+  });
+
+  // ── Privacy / Legal Dialog ───────────────────────────────────────
+
+  const privacyDialog = document.getElementById('privacy-dialog');
+
+  document.querySelectorAll('[data-open-privacy]').forEach(el => {
+    el.addEventListener('click', e => { e.preventDefault(); privacyDialog.showModal(); });
+  });
+  document.getElementById('privacy-dialog-close').addEventListener('click', () => privacyDialog.close());
+  document.getElementById('privacy-dialog-ok').addEventListener('click',    () => privacyDialog.close());
+  privacyDialog.addEventListener('click', e => { if (e.target === privacyDialog) privacyDialog.close(); });
 </script>
 
 </body>
