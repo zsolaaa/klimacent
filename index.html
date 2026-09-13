@@ -34,6 +34,10 @@
     border-color: #00316b;
     background-color: rgba(0, 49, 107, 0.07);
   }
+  .service-radio-label:has(input:focus-visible) {
+    outline: 2px solid #00316b;
+    outline-offset: 2px;
+  }
 
   /* ── Nav scroll-spy aktív állapot ───────────────── */
   .nav-active {
@@ -125,8 +129,6 @@
 
     <!-- Desktop links -->
     <div class="hidden md:flex gap-md items-center" id="desktop-nav-links">
-      <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#szolgaltatasok">Lakossági klímaszerelés</a>
-      <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#szolgaltatasok">Ipari Hűtés</a>
       <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#szolgaltatasok">Szolgáltatások</a>
       <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#rolunk">Rólunk</a>
       <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#contact">Kapcsolat</a>
@@ -152,15 +154,9 @@
   <!-- Mobile menu drawer -->
   <div class="hidden md:hidden bg-surface border-t border-outline-variant" id="mobile-menu">
     <div class="max-w-container-max mx-auto px-gutter py-6 flex flex-col gap-1">
-      <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#szolgaltatasok">Lakossági Klíma</a>
-      <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#szolgaltatasok">Ipari Hűtés</a>
       <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#szolgaltatasok">Szolgáltatások</a>
       <a class="font-label-lg text-label-lg text-on-surface-variant py-3 border-b border-outline-variant hover:text-primary transition-colors" href="#rolunk">Rólunk</a>
       <a class="font-label-lg text-label-lg text-on-surface-variant py-3 hover:text-primary transition-colors" href="#contact">Kapcsolat</a>
-      <a class="mt-4 bg-secondary text-on-secondary px-6 py-3 rounded-lg font-label-lg flex items-center gap-2 w-fit" href="tel:+36303625633">
-        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">phone</span>
-        (30) 362 5633
-      </a>
     </div>
   </div>
 </nav>
@@ -384,7 +380,7 @@
               </div>
               <div>
                 <div class="text-label-sm" style="opacity: 0.6;">Email cím</div>
-                <a href="mailto:klimacentplusskft@gmail.com" class="font-body-md text-body-md hover:opacity-75 transition-opacity break-all">klimacentplusskft@gmail.com</a>
+                <a href="mailto:klimacentplusskft@gmail.com" class="font-body-md text-body-md hover:opacity-75 transition-opacity [overflow-wrap:anywhere]">klimacentplusskft@gmail.com</a>
               </div>
             </div>
           </div>
@@ -426,7 +422,7 @@
             </div>
             <div class="space-y-2">
               <label class="text-label-lg text-on-surface" for="tel">Telefonszám</label>
-              <input id="tel" name="tel" class="w-full p-4 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-surface-variant" placeholder="+36 00 000 0000" type="tel" autocomplete="tel" required aria-required="true">
+              <input id="tel" name="tel" class="w-full p-4 rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-surface-variant" placeholder="+36 00 000 0000" type="tel" autocomplete="tel" pattern="[0-9+ ()/-]{7,}" required aria-required="true">
             </div>
           </div>
 
@@ -627,6 +623,7 @@
     let firstInvalid = null;
     if (!name) { showFieldError('name', 'Kérjük, adja meg a nevét.'); firstInvalid = firstInvalid || 'name'; }
     if (!tel)  { showFieldError('tel',  'Kérjük, adja meg a telefonszámát.'); firstInvalid = firstInvalid || 'tel'; }
+    else if (!/^[0-9+ ()/-]{7,}$/.test(tel)) { showFieldError('tel', 'Adjon meg egy érvényes telefonszámot (pl. +36 30 123 4567).'); firstInvalid = firstInvalid || 'tel'; }
     if (firstInvalid) { document.getElementById(firstInvalid).focus(); return; }
 
     setSubmitLoading(true);
