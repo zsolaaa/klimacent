@@ -396,7 +396,7 @@
         <form class="flex flex-col gap-md" id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
           <input type="hidden" name="form-name" value="contact">
           <p class="hidden" aria-hidden="true">
-            <label>Ne töltse ki, ha ember: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+            <label>Ne töltse ki, ha ember: <input name="bot-field" aria-label="Ne töltse ki, ha ember" tabindex="-1" autocomplete="off"></label>
           </p>
 
           <!-- Service type: pill toggle -->
@@ -404,15 +404,15 @@
             <legend class="text-label-lg text-on-surface">Miben segíthetünk?</legend>
             <div class="flex flex-wrap gap-2 mt-2" id="service-pills">
               <label class="service-radio-label px-4 py-3 min-h-[44px] flex items-center rounded-lg border border-outline-variant bg-surface cursor-pointer transition-colors text-label-lg text-on-surface select-none">
-                <input type="radio" name="service" value="lakossagi" class="sr-only">
+                <input type="radio" name="service" value="lakossagi" aria-label="Lakás / iroda" class="sr-only">
                 Lakás / iroda
               </label>
               <label class="service-radio-label px-4 py-3 min-h-[44px] flex items-center rounded-lg border border-outline-variant bg-surface cursor-pointer transition-colors text-label-lg text-on-surface select-none">
-                <input type="radio" name="service" value="ipari" class="sr-only">
+                <input type="radio" name="service" value="ipari" aria-label="Ipari / kereskedelmi" class="sr-only">
                 Ipari / kereskedelmi
               </label>
               <label class="service-radio-label px-4 py-3 min-h-[44px] flex items-center rounded-lg border border-outline-variant bg-surface cursor-pointer transition-colors text-label-lg text-on-surface select-none">
-                <input type="radio" name="service" value="szerviz" class="sr-only">
+                <input type="radio" name="service" value="szerviz" aria-label="Szerviz / karbantartás" class="sr-only">
                 Szerviz / karbantartás
               </label>
             </div>
