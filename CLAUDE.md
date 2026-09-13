@@ -12,6 +12,7 @@ styles.css           ← legenerált statikus Tailwind CSS (ne szerkeszd kézzel
 tailwind-input.css   ← @tailwind direktívák, a styles.css forrása
 tailwind.config.js   ← Tailwind téma (színek, spacing, fontok) – tükrözi a DESIGN.md-t
 package.json         ← csak a `build:css` scripthez és a Tailwind CLI-hez
+_headers            ← Netlify security headerök (CSP, X-Frame-Options, stb.)
 PRODUCT.md          ← brand kontextus az /impeccable skillhez
 DESIGN.md           ← design system az /impeccable skillhez
 logo/
