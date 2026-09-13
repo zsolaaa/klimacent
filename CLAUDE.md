@@ -13,6 +13,8 @@ tailwind-input.css   ← @tailwind direktívák, a styles.css forrása
 tailwind.config.js   ← Tailwind téma (színek, spacing, fontok) – tükrözi a DESIGN.md-t
 package.json         ← csak a `build:css` scripthez és a Tailwind CLI-hez
 _headers            ← Netlify security headerök (CSP, X-Frame-Options, stb.)
+robots.txt          ← engedélyező, sitemap.xml-re mutat
+sitemap.xml         ← egyetlen URL (statikus egyoldalas site)
 PRODUCT.md          ← brand kontextus az /impeccable skillhez
 DESIGN.md           ← design system az /impeccable skillhez
 logo/
@@ -47,6 +49,12 @@ npm run build:css
 A `node_modules/` és `package-lock.json` nincs commitolva (`.gitignore`), mindenki lokálisan generálja újra.
 
 **FONTOS:** `npm install`-t mindig ebből a mappából (`kílmacent/claude`) futtasd, soha a szülőmappából (`kílmacent/`) – ott egy teljesen másik, független React-projekt van a saját `package.json`-jával, amit véletlenül felül lehet írni, ha az npm felfelé sétál a könyvtárfában.
+
+## SEO
+
+- `<head>`-ben: canonical, Open Graph + Twitter Card meta, és egy `HVACBusiness` JSON-LD schema (`index.html` `</head>` előtt)
+- Nincs pontos utca-cím a schema-ban (csak `Baja` + `areaServed` GeoCircle 30 km sugárral) – ha lesz nyilvános iroda-cím, egészítsd ki `address.streetAddress`-szel és jelentsd be a Google Business Profile-lal megegyezően (NAP-konzisztencia)
+- `robots.txt` és `sitemap.xml` a gyökérben – URL-váltáskor (pl. saját domainre költözéskor) mindkettőben és az OG/canonical URL-ekben is át kell írni a `klimecent.netlify.app`-ot
 
 ## Elérhetőségek (valós adatok)
 
