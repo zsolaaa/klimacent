@@ -487,7 +487,11 @@ tailwind.config = {
 
       <!-- Form -->
       <div data-reveal="right" style="--rd:120ms" class="md:w-2/3 p-6 md:p-lg bg-surface-container-highest">
-        <form class="flex flex-col gap-md" id="contact-form" novalidate>
+        <form class="flex flex-col gap-md" id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="contact">
+          <p class="hidden" aria-hidden="true">
+            <label>Ne töltse ki, ha ember: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+          </p>
 
           <!-- Service type: pill toggle -->
           <fieldset class="space-y-2 border-0 p-0 m-0">
@@ -721,12 +725,13 @@ tailwind.config = {
     setSubmitLoading(true);
 
     try {
-      // TODO: Cserélje valódi végpontra (Formspree / Netlify Forms / saját API).
-      // Formspree példa:
-      //   const resp = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-      //     method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(this)
-      //   });
-      //   if (!resp.ok) throw new Error('server');
+      const data = new URLSearchParams(new FormData(contactForm)).toString();
+      const resp = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: data
+      });
+      if (!resp.ok) throw new Error('server');
       showFormSuccess();
     } catch {
       setSubmitLoading(false);
