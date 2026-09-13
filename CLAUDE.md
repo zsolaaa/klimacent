@@ -2,12 +2,16 @@
 
 ## Összefoglalás
 
-Statikus landing oldal egy bajai klímaszerelő és hűtéstechnikai vállalkozásnak. Cél: bizalomépítés + közvetlen kapcsolatfelvétel (telefonhívás, ajánlatkérő űrlap). Egyetlen `index.html` fájl, nincs build rendszer.
+Statikus landing oldal egy bajai klímaszerelő és hűtéstechnikai vállalkozásnak. Cél: bizalomépítés + közvetlen kapcsolatfelvétel (telefonhívás, ajánlatkérő űrlap). Egyetlen `index.html` fájl; a Tailwind CSS-t egy egyszeri paranccsal (`npm run build:css`) legyártott statikus `styles.css` szolgálja ki – nincs futásidejű build/dev szerver.
 
 ## Fájlstruktúra
 
 ```
 index.html          ← egyetlen forrás, minden szekció ebben van
+styles.css           ← legenerált statikus Tailwind CSS (ne szerkeszd kézzel!)
+tailwind-input.css   ← @tailwind direktívák, a styles.css forrása
+tailwind.config.js   ← Tailwind téma (színek, spacing, fontok) – tükrözi a DESIGN.md-t
+package.json         ← csak a `build:css` scripthez és a Tailwind CLI-hez
 PRODUCT.md          ← brand kontextus az /impeccable skillhez
 DESIGN.md           ← design system az /impeccable skillhez
 logo/
@@ -19,16 +23,29 @@ logo/
   cascade-logo.png
   avd8lnbif.webp    ← Gree logó
   tcl-vector-logo-11574259917avkticmgei.png
-klima.png           ← hero háttérkép (AC egység)
+klima.webp          ← hero háttérkép (AC egység), preload-olva fetchpriority="high"-jal
 .claude/
   launch.json       ← preview szerver (npx serve -p 3456 .)
 ```
 
 ## Tech stack
 
-- **Tailwind CSS** CDN (JIT, `?plugins=forms,container-queries`)
+- **Tailwind CSS**, egyszer legenerált statikus `styles.css` (nem CDN, nem futásidejű JIT – ez volt a fő oka egy korábbi kritikus LCP problémának)
 - **Google Fonts**: Montserrat (headlines) + Inter (body) + Material Symbols Outlined (ikonok)
-- Nincs JS framework, nincs build lépés
+- Nincs JS framework, nincs dev szerver / hot-reload – csak a CSS-generáláshoz kell egyszer Node/npm
+
+### CSS újragenerálása
+
+Ha új Tailwind osztályt adsz az `index.html`-hez (vagy módosítod a `tailwind.config.js`-t), a `styles.css`-t újra kell generálni, különben a build hiányzó lesz belőle:
+
+```bash
+npm install   # csak első alkalommal
+npm run build:css
+```
+
+A `node_modules/` és `package-lock.json` nincs commitolva (`.gitignore`), mindenki lokálisan generálja újra.
+
+**FONTOS:** `npm install`-t mindig ebből a mappából (`kílmacent/claude`) futtasd, soha a szülőmappából (`kílmacent/`) – ott egy teljesen másik, független React-projekt van a saját `package.json`-jával, amit véletlenül felül lehet írni, ha az npm felfelé sétál a könyvtárfában.
 
 ## Elérhetőségek (valós adatok)
 
@@ -58,7 +75,7 @@ Részletek: `DESIGN.md`
 ## Oldal szekciói (sorrendben)
 
 1. **Nav** – sticky, logo (60px, mix-blend-mode: multiply), desktop linkek, mobil hamburger
-2. **Hero** – `klima.png` háttér, `center top`, bottom-up gradiens; mobilon `-35px` offset
+2. **Hero** – `klima.webp` háttér, `center top`, bottom-up gradiens; mobilon `-35px` offset; a fájl `<link rel="preload">`-olva van fetchpriority="high"-jal az LCP javítása miatt
 3. **Márkaszervíz sáv** – 6 logó (h-8, Cascade: max-w-[88px] object-contain)
 4. **Szolgáltatások** – 3 strukturálisan eltérő kártya (featured navy + image-top + content-rich)
 5. **Rólunk** – `logo/auto.webp` bal oldalt, bullet lista jobb oldalt
@@ -88,4 +105,5 @@ Server ID a `preview_list` tool-lal kérhető le, majd `preview_screenshot`-tal 
 
 - Az `/impeccable` skill ismeri a `PRODUCT.md` és `DESIGN.md` fájlokat – critique/polish előtt ezeket kell betölteni
 - Képcserénél mindig ellenőrizd a fájl elérési útját (`logo/` almappa vs gyökér)
-- A Tailwind JIT miatt egyedi értékek (`h-[60px]`, `max-w-[88px]`) is működnek
+- Egyedi Tailwind-értékek (`h-[60px]`, `max-w-[88px]`) működnek, mert a `tailwind.config.js` `content` mezője az `index.html`-t szkenneli – de **CSS-módosítás után mindig futtasd az `npm run build:css`-t**, különben a változás nem jelenik meg
+- Deploy előtt (Netlify auto-publish a `main`-ről) győződj meg róla, hogy a `styles.css` friss és commitolva van – ez NEM generálódik build-time a Netlify-on

@@ -10,6 +10,10 @@ klima2.jpg
 # Claude lokális beállítások
 .claude/settings.local.json
 
+# Tailwind build (npm run build:css)
+node_modules/
+package-lock.json
+
 # OS
 .DS_Store
 Thumbs.db
